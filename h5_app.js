@@ -3,8 +3,18 @@ $(function(){
 	function bridgeReady(){
     hideTopNavigate();//隐藏顶导航
     observeA(); //对所有A链接的点击监听并通知native
-    hideHomeBottom();//隐藏首页底部的“关于老虎金融”和"合作伙伴"模块
-    hideTradeTopBottom();//隐藏交易页顶部信息和底部入金出金
+    var hash = location.hash;
+    if(hash == "#/"){//首页
+      hideHomeBottom();//隐藏首页底部的“关于老虎金融”和"合作伙伴"模块
+    }
+    if(hash == "#/invest/current"){
+      hideTradeTopBottom();//隐藏交易页顶部信息和底部入金出金
+    }
+    if(hash == "#/master/list"){
+      $(".nav-tabs-wrapper").livequery(function(){
+        $(this).css('margin-top', '-48px');
+      });
+    }
   }
   //隐藏交易页顶部信息和底部入金出金
   function hideTradeTopBottom(){
