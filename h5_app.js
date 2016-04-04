@@ -20,6 +20,9 @@ $(function(){
         ".nav-tabs-fixed{margin-top:-48px;}"
       ].join(''));
     }
+    if(hash.indexOf("#/setting/index") != -1){//账户设置资料 ，底部的退出按钮做掉
+      hideSettingLogout();
+    }
   }
   //给页面添加style
   function addStyleSheet(styles){
@@ -54,6 +57,11 @@ $(function(){
 		$(".return_header").livequery(function(){
 			$(this).hide();
 		});
+  }
+  function hideSettingLogout(){
+    $(".setting > .container").livequery(function(){
+      $(this).hide();
+    });
   }
   //对a链接的点击进行监听，阻止并通知native
   function observeA(){
