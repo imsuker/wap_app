@@ -15,6 +15,17 @@ $(function(){
         $(this).css('margin-top', '-48px');
       });
     }
+    if(hash.indexOf("#/master/detail/") != -1){//高手详情页,调整当前投资和历史投资的位置:https://www.tigerwit.com/wap_app/#/master/detail/1220299/history?back=%2F
+      addStyleSheet([
+        ".nav-tabs-fixed{margin-top:-48px;}"
+      ].join(''));
+    }
+  }
+  //给页面添加style
+  function addStyleSheet(styles){
+    var style = document.createElement('style');
+    document.body.appendChild(style);
+    style.appendChild(document.createTextNode(styles));
   }
   //隐藏交易页顶部信息和底部入金出金
   function hideTradeTopBottom(){
