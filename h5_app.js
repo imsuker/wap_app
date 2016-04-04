@@ -65,15 +65,57 @@ $(function(){
 					return;
 				}
 				var url =location.href.replace(/#.*/g,href);
-				var oAction = {
-					"type" : "openUrl",
-					"url" : url
-				};
+        if(isIgnoreUrl(url)){ //不做处理的url
+          console.log('忽略掉当前url,不做任何处理：', url);
+          return;
+        }
+        var oAction = convertAction(url);
+        console.log('convertAction finish:', oAction);
 				callNative(oAction);
 				return false;
 			});
 		});
 	}
+  function isIgnoreUrl(url){
+    var isIgnore = false;
+    var aIgnorehash = [
+      '#/invest/history',  //交易里的当前和历史切换
+      '#/invest/current'
+    ];
+    $.each(aIgnorehash, function(index, hash){
+      if(url.indexOf(hash) != -1){
+        isIgnore = true;
+      }
+    });
+    //高手详情里的当前和历史切换 https://www.tigerwit.com/wap/#/master/detail/525105/history?back=%2F
+    if(location.href.indexOf('#/master/detail') != -1  && url.indexOf('#/master/detail') != -1){
+      isIgnore = true;
+    }
+    return isIgnore;
+  }
+  function convertAction(url){
+    var type = "openUrl";
+    var oAction = {
+      "type" : type,
+      "url" : url
+    };
+    if(url.indexOf('#/account/login') != -1){
+      oAction = {
+        "type" : "login"
+      };
+    }
+    if(url.indexOf('#/setting/verify') != -1){
+      oAction = {
+        "type" : 'verifyRealname'
+      };
+    }
+    if(url.indexOf('#/setting/avatar') != -1){
+      oAction = {
+        "type" : "uploadAvatar"
+      };
+    }
+    return oAction;
+  }
 	function callNative(oAction){
 		var sAction = JSON.stringify(oAction);
 		if(isIOS()){
@@ -85,5 +127,4 @@ $(function(){
 	function isIOS(){
 		return /like Mac OS X/.test(navigator.userAgent);
 	}
-
 });
