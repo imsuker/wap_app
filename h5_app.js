@@ -24,6 +24,11 @@ $(function() {
     if (hash.indexOf("#/setting/index") != -1) { //账户设置资料 ，底部的退出按钮做掉
       hideSettingLogout();
     }
+    if(hash.indexOf("#/web/faq") != -1){
+      $(".faq__callme").livequery(function(){
+        $(this).parent().remove();
+      });
+    }
   }
   //给页面添加style
   function addStyleSheet(styles) {
