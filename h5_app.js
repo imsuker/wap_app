@@ -129,7 +129,7 @@ $(function() {
     return oAction;
   }
 
-  function callNative(oAction) {
+  window.callNative = function (oAction) {
     var sAction = JSON.stringify(oAction);
     if (isIOS()) {
       TigerwitNative(sAction);
